@@ -1,0 +1,83 @@
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.prompt-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+}
+
+.btn-run {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #4f46e5;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-run:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-save {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #10b981;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.flow-container {
+  flex: 1; 
+  width: 100%;
+  min-height: 300px;
+}
+
+
+.node-input {
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #4f46e5;
+  background-color: #eef2ff;
+  font-weight: bold;
+}
+
+.node-output {
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #10b981;
+  background-color: #ecfdf5;
+  font-weight: bold;
+}
+
+.react-flow__attribution {
+  display: none;
+}
