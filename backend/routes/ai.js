@@ -8,6 +8,10 @@ const router = express.Router();
 router.post("/ask-ai", async (req, res) => {
   const {prompt} = req.body;
 
+  if (!prompt || !prompt.trim()) {
+    return res.status(400).json({error: "Prompt is required"});
+  }
+
   try {
     const aiRes = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
@@ -20,12 +24,23 @@ router.post("/ask-ai", async (req, res) => {
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
         },
+        timeout: 20000,
       }
     );
 
-    res.json({answer: aiRes.data.choices[0].message.content});
+    res.json({
+      answer: aiRes.data.choices[0].message.content,
+    });
   } catch (err) {
     console.error("OpenRouter Error:", err.response?.data || err.message);
+
+    if (err.response?.status === 429) {
+      return res.status(429).json({
+        error:
+          "Free AI model is temporarily rate-limited. Please try again shortly.",
+      });
+    }
+
     res.status(500).json({error: "AI request failed"});
   }
 });
@@ -33,6 +48,11 @@ router.post("/ask-ai", async (req, res) => {
 // Save to DB
 router.post("/save", async (req, res) => {
   const {prompt, response} = req.body;
+
+  if (!prompt || !response) {
+    return res.status(400).json({error: "Prompt and response are required"});
+  }
+
   await Promptdata.create({prompt, response});
   res.json({message: "Saved successfully"});
 });
