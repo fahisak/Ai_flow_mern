@@ -1,13 +1,11 @@
 const express = require("express");
 const axios = require("axios");
 const Promptdata = require("../models/prompt.js");
-
 const router = express.Router();
 
 // Ask AI
 router.post("/ask-ai", async (req, res) => {
   const {prompt} = req.body;
-
   if (!prompt || !prompt.trim()) {
     return res.status(400).json({error: "Prompt is required"});
   }
